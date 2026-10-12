@@ -83,7 +83,7 @@ Password form for the superuser.
 | Language   | German only, UI strings hardcoded, no i18n library. The AI is prompted to answer in German.               |
 | AI         | `@tanstack/ai` with `@tanstack/ai-openrouter`. `OPENROUTER_API_KEY` and `OPENROUTER_MODEL` in server env. |
 | AI scope   | Import only. No re-fill on existing plants, no per-field suggestions.                                     |
-| Auth       | Password hash in server env, signed HttpOnly session cookie, rate-limited login. No user table.           |
+| Auth       | Plain password in server env, signed HttpOnly session cookie, rate-limited login. No user table.           |
 | Guarding   | Every write (import, edit, delete, photo upload) checks the session on the server.                        |
 | Database   | SQLite through Drizzle with `better-sqlite3`.                                                             |
 | Validation | Zod. One plant schema shared by the edit form (remote functions) and the AI `outputSchema`.               |

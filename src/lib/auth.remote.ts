@@ -16,7 +16,7 @@ export const login = form(z.object({ _password: z.string().min(1) }), async (dat
 	if (!allowLoginAttempt()) {
 		invalid('Zu viele Versuche. In 15 Minuten geht es wieder.');
 	}
-	if (!(await verifyPassword(data._password))) {
+	if (!verifyPassword(data._password)) {
 		invalid(issue._password('Das Passwort stimmt nicht.'));
 	}
 	clearLoginAttempts();
