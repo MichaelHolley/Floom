@@ -5,7 +5,8 @@ import { OPENROUTER_API_KEY, OPENROUTER_MODEL } from '$app/env/private';
 import { careSchema, type CareSuggestion } from '../plant.ts';
 
 const outputSchema = z.object({
-	care: careSchema.nullable().meta({
+	// optional, not nullable: @tanstack/ai only strips the nulls strict mode sends for omitted fields inside a plain object
+	care: careSchema.optional().meta({
 		description: 'null, wenn auf dem Foto keine Pflanze zu erkennen ist'
 	})
 });
@@ -16,11 +17,11 @@ Antworte ausschließlich auf Deutsch. Hinweise sind kurze, konkrete Sätze ohne 
 
 export const aiConfigured = Boolean(OPENROUTER_API_KEY && OPENROUTER_MODEL);
 
-/** @returns `null` if the model sees no plant in the photo */
+/** @returns `undefined` if the model sees no plant in the photo */
 export async function suggestCare(
 	imageBase64: string,
 	speciesHint: string
-): Promise<CareSuggestion | null> {
+): Promise<CareSuggestion | undefined> {
 	const { care } = await chat({
 		adapter: createOpenRouterText(
 			OPENROUTER_MODEL as Parameters<typeof createOpenRouterText>[0],
