@@ -6,7 +6,7 @@
 <svelte:head><title>Floom</title></svelte:head>
 
 <div class="mt-8 max-w-md">
-	<h1 class="schild text-5xl">
+	<h1 class="titel text-4xl">
 		{page.status === 404 ? 'Hier wächst nichts.' : 'Das hat nicht geklappt.'}
 	</h1>
 	<p class="mt-4 text-lg leading-relaxed">

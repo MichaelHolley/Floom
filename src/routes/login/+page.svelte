@@ -5,7 +5,7 @@
 <svelte:head><title>Anmelden – Floom</title></svelte:head>
 
 <form {...login} class="mx-auto mt-8 max-w-sm">
-	<h1 class="schild text-5xl">Anmelden</h1>
+	<h1 class="titel text-4xl">Anmelden</h1>
 	<p class="mt-3 text-moos">Nur nötig, um Pflanzen hinzuzufügen oder zu ändern.</p>
 
 	<label class="mt-8 block">

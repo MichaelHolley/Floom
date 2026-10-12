@@ -1,20 +1,25 @@
 @import 'tailwindcss';
-@import '@fontsource-variable/archivo/wdth.css';
-@import '@fontsource-variable/newsreader/wght-italic.css';
+@import '@fontsource/poppins/400.css';
+@import '@fontsource/poppins/500.css';
+@import '@fontsource/poppins/600.css';
+@import '@fontsource/poppins/700.css';
+@import '@fontsource/poppins/800.css';
+@import '@fontsource-variable/fraunces/full.css';
+@import '@fontsource-variable/fraunces/full-italic.css';
 
 @theme {
-	--font-sans: 'Archivo Variable', ui-sans-serif, system-ui, sans-serif;
-	--font-latin: 'Newsreader Variable', Georgia, serif;
+	--font-sans: 'Poppins', ui-sans-serif, system-ui, sans-serif;
+	--font-serif: 'Fraunces Variable', Georgia, serif;
 
-	--color-grund: #f2f5f0;
-	--color-etikett: #ffffff;
-	--color-tinte: #15231b;
-	--color-moos: #55655a;
-	--color-linie: #d3dbd1;
-	--color-blatt: #1d6a43;
-	--color-sonne: #f2b318;
-	--color-wasser: #2b68d8;
-	--color-gift: #c4285f;
+	--color-grund: #ecf4dc;
+	--color-etikett: #fffdf5;
+	--color-tinte: #1e3a2c;
+	--color-moos: #55694f;
+	--color-linie: #c9dab0;
+	--color-blatt: #2c7a4b;
+	--color-sonne: #ffc83d;
+	--color-wasser: #3a78dc;
+	--color-gift: #cf2f5b;
 
 	--text-xs: 0.75rem;
 	--text-sm: 0.875rem;
@@ -54,21 +59,41 @@
 }
 
 @layer components {
-	/* Plant names are set like the print on a nursery stake: heavy and narrow, so long German compounds fit two columns on a phone. */
-	.schild {
-		font-stretch: 68%;
-		font-weight: 800;
-		line-height: 1;
-		letter-spacing: -0.005em;
+	.name {
+		font-family: var(--font-serif);
+		font-variation-settings:
+			'SOFT' 100,
+			'WONK' 1;
+		font-weight: 620;
+		line-height: 1.02;
+		letter-spacing: -0.015em;
 		text-wrap: balance;
 		hyphens: auto;
 	}
 
 	.latin {
-		font-family: var(--font-latin);
+		font-family: var(--font-serif);
+		font-variation-settings: 'SOFT' 100;
 		font-style: italic;
-		font-weight: 420;
-		letter-spacing: 0.005em;
+		font-weight: 400;
+	}
+
+	.titel {
+		font-weight: 800;
+		line-height: 1.05;
+		letter-spacing: -0.02em;
+		text-wrap: balance;
+	}
+
+	.wert {
+		font-size: var(--text-xl);
+		font-weight: 700;
+		line-height: 1.2;
+	}
+
+	/* Percentages are tuned for a 4:5 box so the big corners stay circular. */
+	.blattform {
+		border-radius: 42% 7% 42% 7% / 33.6% 5.6% 33.6% 5.6%;
 	}
 
 	.knopf {
@@ -77,19 +102,26 @@
 		justify-content: center;
 		gap: 0.5rem;
 		min-height: 2.75rem;
-		padding: 0 1.125rem;
-		border-radius: 0.375rem;
+		padding: 0 1.25rem;
+		border-radius: 999px;
 		border: 2px solid var(--color-tinte);
-		background: var(--color-tinte);
+		background: var(--color-blatt);
 		color: var(--color-etikett);
-		font-weight: 650;
-		font-stretch: 88%;
+		font-weight: 700;
 		font-size: var(--text-base);
+		box-shadow: 0 3px 0 var(--color-tinte);
+		transition:
+			transform 80ms ease-out,
+			box-shadow 80ms ease-out;
 	}
 
 	.knopf:hover {
-		background: var(--color-blatt);
-		border-color: var(--color-blatt);
+		background: var(--color-tinte);
+	}
+
+	.knopf:active:not(:disabled) {
+		transform: translateY(3px);
+		box-shadow: 0 0 0 var(--color-tinte);
 	}
 
 	.knopf:disabled {
@@ -98,31 +130,23 @@
 	}
 
 	.knopf-leise {
-		background: transparent;
+		background: var(--color-etikett);
 		color: var(--color-tinte);
 	}
 
 	.knopf-leise:hover {
-		background: var(--color-tinte);
-		border-color: var(--color-tinte);
-		color: var(--color-etikett);
+		background: var(--color-sonne);
 	}
 
 	.knopf-gift {
 		background: var(--color-gift);
-		border-color: var(--color-gift);
-	}
-
-	.knopf-gift:hover {
-		background: var(--color-tinte);
-		border-color: var(--color-tinte);
 	}
 
 	.feld {
 		width: 100%;
 		min-height: 2.75rem;
-		padding: 0.5rem 0.75rem;
-		border-radius: 0.375rem;
+		padding: 0.5rem 0.875rem;
+		border-radius: 0.875rem;
 		border: 2px solid var(--color-linie);
 		background: var(--color-etikett);
 		font-size: var(--text-base);
@@ -142,5 +166,40 @@
 
 	.feld::placeholder {
 		color: var(--color-moos);
+	}
+
+	.link {
+		font-weight: 600;
+		text-decoration: underline wavy var(--color-blatt);
+		text-decoration-thickness: 1.5px;
+		text-underline-offset: 4px;
+	}
+
+	.link:hover {
+		text-decoration-color: var(--color-sonne);
+	}
+
+	@media (prefers-reduced-motion: no-preference) {
+		.wiegt {
+			transition: transform 260ms cubic-bezier(0.34, 1.56, 0.64, 1);
+		}
+
+		.group:hover .wiegt {
+			transform: rotate(-2deg) scale(1.02);
+		}
+
+		.spriesst > span {
+			display: inline-block;
+			transform-origin: 50% 100%;
+			animation: spriessen 620ms cubic-bezier(0.34, 1.56, 0.64, 1) backwards;
+			animation-delay: calc(var(--i) * 70ms);
+		}
+	}
+
+	@keyframes spriessen {
+		from {
+			transform: translateY(0.25em) scaleY(0.2);
+			opacity: 0;
+		}
 	}
 }

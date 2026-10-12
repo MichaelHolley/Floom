@@ -18,7 +18,7 @@
 		{#if page.route.id === '/'}
 			<span></span>
 		{:else}
-			<a href={resolve('/')} class="schild text-3xl hover:text-blatt">Floom</a>
+			<a href={resolve('/')} class="name text-3xl text-blatt hover:text-tinte">Floom</a>
 		{/if}
 		{#if admin && page.route.id !== '/import'}
 			<a href={resolve('/import')} class="knopf">
@@ -32,14 +32,15 @@
 		{@render children()}
 	</main>
 
-	<footer class="flex items-center gap-4 border-t-2 border-linie py-6 text-sm text-moos">
+	<footer
+		class="flex items-center gap-4 border-t-2 border-dotted border-linie py-6 text-sm text-moos"
+	>
 		{#if admin}
 			<form {...logout}>
-				<button class="font-semibold underline underline-offset-2 hover:text-tinte">Abmelden</button
-				>
+				<button class="link">Abmelden</button>
 			</form>
 		{:else}
-			<a href={resolve('/login')} class="underline underline-offset-2 hover:text-tinte">Anmelden</a>
+			<a href={resolve('/login')} class="link">Anmelden</a>
 		{/if}
 	</footer>
 </div>

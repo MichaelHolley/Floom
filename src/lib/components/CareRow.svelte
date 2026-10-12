@@ -12,10 +12,12 @@
 	}: { icon: IconName; tone?: Tone; label: string; note?: string; children: Snippet } = $props();
 </script>
 
-<div class="grid grid-cols-[2.5rem_minmax(0,1fr)] gap-x-4 border-b-2 border-linie py-5">
-	<Pikto name={icon} {tone} class="size-10" />
+<div
+	class="grid grid-cols-[2.75rem_minmax(0,1fr)] gap-x-4 border-b-2 border-dotted border-linie py-5"
+>
+	<Pikto name={icon} {tone} class="size-11" />
 	<div>
-		<dt class="text-sm font-medium text-moos">{label}</dt>
+		<dt class="text-sm font-semibold text-moos">{label}</dt>
 		<dd class="mt-1">
 			{@render children()}
 			{#if note}

@@ -1,8 +1,8 @@
 <script lang="ts" module>
 	const TONES = {
 		sonne: 'bg-sonne text-tinte',
-		hell: 'bg-[#f8dd8a] text-tinte',
-		halbschatten: 'bg-[#c8d2c2] text-tinte',
+		hell: 'bg-[#ffe7a3] text-tinte',
+		halbschatten: 'bg-[#c9dab0] text-tinte',
 		schatten: 'bg-moos text-etikett',
 		wasser: 'bg-wasser text-etikett',
 		gift: 'bg-gift text-etikett',
@@ -23,6 +23,6 @@
 	}: { name: IconName; tone?: Tone; class?: ClassValue } = $props();
 </script>
 
-<span class={['inline-grid shrink-0 place-items-center rounded-sm', TONES[tone], className]}>
+<span class={['inline-grid shrink-0 place-items-center rounded-full', TONES[tone], className]}>
 	<Icon {name} class="size-[66%]" />
 </span>

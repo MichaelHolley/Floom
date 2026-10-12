@@ -46,15 +46,17 @@
 {#snippet seasonBox(key: Season, min: number | null, max: number | null)}
 	<div
 		class={[
-			'rounded-md px-3 py-2.5',
-			key === season ? 'bg-tinte text-etikett' : 'bg-etikett ring-2 ring-linie ring-inset'
+			'rounded-2xl px-3.5 py-2.5',
+			key === season ? 'bg-sonne' : 'bg-etikett ring-2 ring-linie ring-inset'
 		]}
 	>
-		<p class="flex items-baseline justify-between gap-2 text-sm font-medium">
+		<p class="flex items-center justify-between gap-2 text-sm font-semibold">
 			{SEASON_LABELS[key].name}
-			{#if key === season}<span class="text-xs font-semibold text-sonne">jetzt</span>{/if}
+			{#if key === season}<span
+					class="rounded-full bg-tinte px-2 py-0.5 text-xs font-semibold text-etikett">jetzt</span
+				>{/if}
 		</p>
-		<p class="schild mt-1.5 text-2xl">
+		<p class="wert mt-1">
 			{#if min !== null && max !== null}
 				alle {formatDays(min, max)}
 			{:else}
@@ -78,7 +80,7 @@
 	<img
 		src={photoUrl(plant.photo, 'full')}
 		alt="Foto von {plant.name}"
-		class="aspect-4/5 w-full rounded-md bg-linie object-cover lg:sticky lg:top-6"
+		class="blattform aspect-4/5 w-full bg-linie object-cover lg:sticky lg:top-6"
 	/>
 
 	{#if editing}
@@ -88,7 +90,7 @@
 			})}
 			enctype="multipart/form-data"
 		>
-			<h1 class="schild text-4xl sm:text-5xl">{plant.name} bearbeiten</h1>
+			<h1 class="titel text-3xl sm:text-4xl"><span class="name">{plant.name}</span> bearbeiten</h1>
 
 			<input {...edit.fields.id.as('hidden', plant.id)} />
 
@@ -97,7 +99,7 @@
 				<input
 					{...edit.fields.photo.as('file')}
 					accept="image/*"
-					class="feld mt-1 file:mr-3 file:rounded-sm file:border-0 file:bg-tinte file:px-3 file:py-1 file:font-semibold file:text-etikett"
+					class="feld mt-1 file:mr-3 file:rounded-full file:border-0 file:bg-tinte file:px-3 file:py-1 file:font-semibold file:text-etikett"
 				/>
 				{#each edit.fields.photo.issues() ?? [] as issue (issue.message)}
 					<p class="mt-1 text-sm font-semibold text-gift">{issue.message}</p>
@@ -108,14 +110,16 @@
 				<PlantFields fields={edit.fields} {plant} />
 			</div>
 
-			<div class="mt-10 flex flex-wrap items-center gap-3 border-t-2 border-tinte pt-6">
+			<div
+				class="mt-10 flex flex-wrap items-center gap-3 border-t-2 border-dotted border-linie pt-6"
+			>
 				<button class="knopf" disabled={edit.pending > 0}>Änderungen speichern</button>
 				<button type="reset" class="knopf knopf-leise" onclick={() => (editingId = undefined)}>
 					Abbrechen
 				</button>
 				<button
 					type="button"
-					class="ml-auto font-semibold text-gift underline underline-offset-2"
+					class="ml-auto font-semibold text-gift underline decoration-wavy underline-offset-4"
 					onclick={() => deleteDialog?.showModal()}
 				>
 					Pflanze löschen
@@ -125,9 +129,9 @@
 
 		<dialog
 			bind:this={deleteDialog}
-			class="m-auto max-w-sm rounded-md bg-etikett p-6 text-tinte backdrop:bg-tinte/60"
+			class="m-auto max-w-sm rounded-3xl bg-etikett p-6 text-tinte backdrop:bg-tinte/60"
 		>
-			<h2 class="schild text-3xl">{plant.name} löschen?</h2>
+			<h2 class="titel text-2xl"><span class="name">{plant.name}</span> löschen?</h2>
 			<p class="mt-3 leading-relaxed">
 				Die Pflanze und ihr Foto werden endgültig entfernt. Das lässt sich nicht rückgängig machen.
 			</p>
@@ -141,7 +145,7 @@
 	{:else}
 		<div>
 			<div class="flex items-start justify-between gap-4">
-				<h1 class="schild text-5xl sm:text-6xl">{plant.name}</h1>
+				<h1 class="name text-5xl sm:text-6xl">{plant.name}</h1>
 				{#if admin}
 					<button class="knopf knopf-leise shrink-0" onclick={() => (editingId = plant.id)}>
 						<Icon name="stift" class="size-5" />
@@ -158,10 +162,10 @@
 				{plant.location}
 			</p>
 
-			<h2 class="schild mt-12 text-3xl">Pflege</h2>
-			<dl class="mt-4 border-t-2 border-tinte">
+			<h2 class="titel mt-12 text-2xl">Pflege</h2>
+			<dl class="mt-4 border-t-2 border-dotted border-linie">
 				<CareRow icon={plant.light} tone={plant.light} label="Licht">
-					<p class="schild text-2xl">{LIGHT_LABELS[plant.light].long}</p>
+					<p class="wert">{LIGHT_LABELS[plant.light].long}</p>
 				</CareRow>
 
 				<CareRow icon="tropfen" tone="wasser" label="Gießen" note={plant.wateringNote}>
@@ -185,7 +189,7 @@
 				{/if}
 
 				<CareRow icon="topf" label="Umtopfen" note={plant.repottingNote}>
-					<p class="schild text-2xl">
+					<p class="wert">
 						{plant.repottingYears === 1 ? 'jedes Jahr' : `alle ${plant.repottingYears} Jahre`}
 					</p>
 				</CareRow>
@@ -196,7 +200,7 @@
 					label="Giftigkeit"
 					note={plant.toxicityNote}
 				>
-					<p class="schild text-2xl">
+					<p class="wert">
 						{#if plant.toxicPets && plant.toxicChildren}
 							Giftig für Haustiere und Kinder
 						{:else if plant.toxicPets}
@@ -210,13 +214,13 @@
 				</CareRow>
 
 				<CareRow icon="stufen" label="Schwierigkeit">
-					<p class="schild text-2xl first-letter:uppercase">{plant.difficulty}</p>
+					<p class="wert first-letter:uppercase">{plant.difficulty}</p>
 				</CareRow>
 
 				{#if plant.frostMinTemp !== null || plant.overwinteringNote}
 					<CareRow icon="frost" label="Frost und Überwinterung" note={plant.overwinteringNote}>
 						{#if plant.frostMinTemp !== null}
-							<p class="schild text-2xl">
+							<p class="wert">
 								Verträgt bis {plant.frostMinTemp.toLocaleString('de').replace('-', '−')} °C
 							</p>
 						{/if}
@@ -225,7 +229,7 @@
 			</dl>
 
 			{#if plant.tips}
-				<h2 class="schild mt-12 text-3xl">Tipps und Tricks</h2>
+				<h2 class="titel mt-12 text-2xl">Tipps und Tricks</h2>
 				<p class="mt-4 max-w-[62ch] text-lg leading-relaxed whitespace-pre-line">{plant.tips}</p>
 			{/if}
 		</div>

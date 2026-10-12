@@ -33,7 +33,7 @@
 </script>
 
 <a href={resolve('/plants/[id=integer]', { id: plant.id })} class="group block">
-	<div class="relative aspect-4/5 overflow-hidden rounded-md bg-linie">
+	<div class="blattform wiegt relative aspect-4/5 overflow-hidden bg-linie">
 		<img
 			src={photoUrl(plant.photo, 'thumb')}
 			alt=""
@@ -42,7 +42,7 @@
 			class="size-full object-cover"
 		/>
 		<span
-			class="absolute top-2 left-2 rounded-sm bg-etikett px-1.5 py-0.5 text-xs font-semibold font-stretch-90%"
+			class="absolute bottom-2 left-2 rounded-full bg-etikett px-2.5 py-0.5 text-xs font-semibold"
 		>
 			<span class="sr-only">Schwierigkeit:</span>
 			{plant.difficulty}
@@ -55,9 +55,7 @@
 		{/if}
 	</div>
 
-	<h2
-		class="schild mt-3 text-2xl decoration-2 underline-offset-2 group-hover:underline sm:text-3xl"
-	>
+	<h2 class="name mt-4 text-2xl group-hover:text-blatt sm:text-3xl">
 		{plant.name}
 	</h2>
 	<p class="mt-1 text-sm leading-snug text-moos">
@@ -65,9 +63,7 @@
 		<span class="latin text-base">{plant.botanicalName}</span>
 	</p>
 
-	<ul
-		class="mt-2.5 flex flex-wrap items-center gap-x-3 gap-y-1.5 text-sm font-medium font-stretch-90%"
-	>
+	<ul class="mt-2.5 flex flex-wrap items-center gap-x-3 gap-y-1.5 text-sm font-medium">
 		<li class="flex w-full items-center gap-1.5">
 			<Icon name="ort" class="size-5 text-moos" />
 			{plant.location}

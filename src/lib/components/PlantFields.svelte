@@ -7,7 +7,7 @@
 	let { fields, plant }: { fields: RemoteFormFields<PlantInput>; plant?: Plant } = $props();
 
 	const choice =
-		'flex min-h-11 items-center gap-2.5 rounded-md border-2 border-linie bg-etikett px-3 py-2 font-medium has-checked:border-tinte has-focus-visible:outline-3 has-focus-visible:outline-offset-2 has-focus-visible:outline-wasser';
+		'flex min-h-11 items-center gap-2.5 rounded-2xl border-2 border-linie bg-etikett px-3 py-2 font-medium has-checked:border-tinte has-checked:bg-sonne/30 has-focus-visible:outline-3 has-focus-visible:outline-offset-2 has-focus-visible:outline-wasser';
 </script>
 
 {#snippet issues(field: { issues(): RemoteFormIssue[] | undefined })}
@@ -66,13 +66,13 @@
 
 <div class="grid gap-10">
 	<fieldset class="grid gap-4 sm:grid-cols-2">
-		<legend class="schild mb-4 text-2xl">Diese Pflanze</legend>
+		<legend class="titel mb-4 text-xl">Diese Pflanze</legend>
 		{@render text('Name', fields.name, plant?.name, 'Große Monstera')}
 		{@render text('Standort', fields.location, plant?.location, 'Wohnzimmer, Ostfenster')}
 	</fieldset>
 
 	<fieldset class="grid gap-4 sm:grid-cols-2">
-		<legend class="schild mb-4 text-2xl">Art</legend>
+		<legend class="titel mb-4 text-xl">Art</legend>
 		{@render text('Deutscher Name', fields.commonName, plant?.commonName, 'Fensterblatt')}
 		{@render text(
 			'Botanischer Name',
@@ -83,7 +83,7 @@
 	</fieldset>
 
 	<fieldset>
-		<legend class="schild mb-4 text-2xl">Licht</legend>
+		<legend class="titel mb-4 text-xl">Licht</legend>
 		<div class="grid gap-2 sm:grid-cols-2">
 			{#each LIGHT_LEVELS as level (level)}
 				<label class={choice}>
@@ -100,7 +100,7 @@
 	</fieldset>
 
 	<fieldset class="grid gap-4">
-		<legend class="schild mb-4 text-2xl">Gießen</legend>
+		<legend class="titel mb-4 text-xl">Gießen</legend>
 		<div class="grid gap-4 sm:grid-cols-2">
 			{@render days(
 				'Gießen',
@@ -123,7 +123,7 @@
 	</fieldset>
 
 	<fieldset class="grid gap-4">
-		<legend class="schild mb-4 text-2xl">Düngen</legend>
+		<legend class="titel mb-4 text-xl">Düngen</legend>
 		<div class="grid gap-4 sm:grid-cols-2">
 			{@render days(
 				'Düngen',
@@ -147,7 +147,7 @@
 	</fieldset>
 
 	<fieldset class="grid gap-4">
-		<legend class="schild mb-4 text-2xl">Substrat und Umtopfen</legend>
+		<legend class="titel mb-4 text-xl">Substrat und Umtopfen</legend>
 		{@render text(
 			'Substrat',
 			fields.substrate,
@@ -171,7 +171,7 @@
 	</fieldset>
 
 	<fieldset class="grid gap-4">
-		<legend class="schild mb-4 text-2xl">Giftigkeit</legend>
+		<legend class="titel mb-4 text-xl">Giftigkeit</legend>
 		<div class="grid gap-2 sm:grid-cols-2">
 			<label class={choice}>
 				<input {...fields.toxicPets.as('checkbox', plant?.toxicPets)} class="size-5 accent-gift" />
@@ -189,7 +189,7 @@
 	</fieldset>
 
 	<fieldset>
-		<legend class="schild mb-4 text-2xl">Schwierigkeit</legend>
+		<legend class="titel mb-4 text-xl">Schwierigkeit</legend>
 		<div class="grid grid-cols-3 gap-2">
 			{#each DIFFICULTIES as difficulty (difficulty)}
 				<label class={[choice, 'justify-center']}>
@@ -209,7 +209,7 @@
 	</fieldset>
 
 	<fieldset class="grid gap-4">
-		<legend class="schild mb-4 text-2xl">Frost und Überwinterung</legend>
+		<legend class="titel mb-4 text-xl">Frost und Überwinterung</legend>
 		<label class="block">
 			<span class="text-sm font-semibold">Tiefste vertragene Temperatur</span>
 			<span class="mt-1 flex items-center gap-2">
@@ -225,7 +225,7 @@
 	</fieldset>
 
 	<fieldset>
-		<legend class="schild mb-4 text-2xl">Tipps und Tricks</legend>
+		<legend class="titel mb-4 text-xl">Tipps und Tricks</legend>
 		<textarea
 			{...fields.tips.as('text', plant?.tips)}
 			rows="8"

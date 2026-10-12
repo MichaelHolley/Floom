@@ -40,10 +40,10 @@
 <svelte:head><title>Pflanze hinzufügen – Floom</title></svelte:head>
 
 <form {...createPlant} enctype="multipart/form-data" class="mx-auto max-w-2xl">
-	<h1 class="schild text-5xl sm:text-6xl">Pflanze hinzufügen</h1>
+	<h1 class="titel text-4xl sm:text-5xl">Pflanze hinzufügen</h1>
 
 	<label
-		class="mt-8 grid aspect-4/3 w-full place-items-center overflow-hidden rounded-md border-2 border-dashed border-moos bg-etikett has-focus-visible:outline-3 has-focus-visible:outline-offset-2 has-focus-visible:outline-wasser"
+		class="mt-8 grid aspect-4/3 w-full place-items-center overflow-hidden rounded-[2rem] border-2 border-dashed border-blatt bg-etikett has-focus-visible:outline-3 has-focus-visible:outline-offset-2 has-focus-visible:outline-wasser"
 	>
 		{#if preview}
 			<img src={preview} alt="Gewähltes Foto" class="size-full object-cover" />
@@ -95,7 +95,7 @@
 		{#if aiError}
 			<p
 				role="alert"
-				class="mt-8 rounded-md border-2 border-gift bg-etikett px-4 py-3 font-semibold"
+				class="mt-8 rounded-2xl border-2 border-gift bg-etikett px-4 py-3 font-semibold"
 			>
 				{aiError}
 			</p>
