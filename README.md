@@ -1,42 +1,36 @@
-# sv
+# Floom
 
-Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
+A public, German-language care guide for the plants I own. Anyone can read it; one admin password guards importing, editing and deleting.
 
-## Creating a project
-
-If you're seeing this, you've probably already done this step. Congrats!
-
-```sh
-# create a new project
-npx sv create my-app
-```
-
-To recreate this project with the same configuration:
-
-```sh
-# recreate this project
-pnpm dlx sv@0.16.3 create --template minimal --types ts --add prettier eslint tailwindcss="plugins:none" sveltekit-adapter="adapter:auto" mcp="ide:claude-code+setup:remote" experimental="versions:kit+features:async,remoteFunctions,explicitEnvironmentVariables,handleRenderingErrors" --install pnpm vibe-svelte
-```
+SvelteKit with runes and remote functions, SQLite through Drizzle, Tailwind.
 
 ## Developing
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
-
 ```sh
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
+cp .env.example .env   # set ADMIN_PASSWORD
+pnpm install
+pnpm run dev
 ```
 
-## Building
+Validate changes with `pnpm run check` and `pnpm run lint`.
 
-To create a production version of your app:
+## Deploying with Docker and Portainer
+
+The image is built from this repository by [compose.yaml](compose.yaml). The SQLite file and the photos live in the `data` volume, mounted at `/data`.
+
+In Portainer: **Stacks → Add stack → Repository**, point it at this repository with `compose.yaml` as the compose path, and set the environment variables below.
+
+| Variable             | Required | Purpose                                                |
+| -------------------- | -------- | ------------------------------------------------------ |
+| `ADMIN_PASSWORD`     | yes      | Superuser password. Changing it ends every session.    |
+| `PORT`               | no       | Host port, defaults to `3000`.                         |
+| `OPENROUTER_API_KEY` | no       | Only needed for "Mit KI ausfüllen".                    |
+| `OPENROUTER_MODEL`   | no       | Must accept image input and support structured output. |
+
+The app expects an HTTPS reverse proxy in front that forwards the `Host` and `X-Forwarded-For` headers. Without one, logging in does not work.
+
+Without Portainer:
 
 ```sh
-npm run build
+ADMIN_PASSWORD=... docker compose up -d --build
 ```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.

@@ -1,0 +1,15 @@
+services:
+  floom:
+    build: .
+    restart: unless-stopped
+    ports:
+      - '${PORT:-3000}:3000'
+    environment:
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD}
+      OPENROUTER_API_KEY: ${OPENROUTER_API_KEY:-}
+      OPENROUTER_MODEL: ${OPENROUTER_MODEL:-}
+    volumes:
+      - data:/data
+
+volumes:
+  data:
