@@ -1,25 +1,31 @@
 <script lang="ts">
 	import type { RemoteFormField, RemoteFormFields, RemoteFormIssue } from '$app/server';
-	import { DIFFICULTIES, LIGHT_LABELS, LIGHT_LEVELS, type PlantInput } from '../plant.ts';
+	import {
+		DIFFICULTIES,
+		DIFFICULTY_LABELS,
+		LIGHT_LABELS,
+		LIGHT_LEVELS,
+		type PlantInput
+	} from '../plant.ts';
 	import type { Plant } from '../server/db/schema.ts';
-	import Pikto from './Pikto.svelte';
+	import Pictogram from './Pictogram.svelte';
 
 	let { fields, plant }: { fields: RemoteFormFields<PlantInput>; plant?: Plant } = $props();
 
 	const choice =
-		'flex min-h-11 items-center gap-2.5 rounded-2xl border-2 border-linie bg-etikett px-3 py-2 font-medium has-checked:border-tinte has-checked:bg-sonne/30 has-focus-visible:outline-3 has-focus-visible:outline-offset-2 has-focus-visible:outline-wasser';
+		'flex min-h-11 items-center gap-2.5 rounded-2xl border-2 border-line bg-surface px-3 py-2 font-medium has-checked:border-ink has-checked:bg-sun/30 has-focus-visible:outline-3 has-focus-visible:outline-offset-2 has-focus-visible:outline-water';
 </script>
 
 {#snippet issues(field: { issues(): RemoteFormIssue[] | undefined })}
 	{#each field.issues() ?? [] as issue (issue.message)}
-		<p class="mt-1 text-sm font-semibold text-gift">{issue.message}</p>
+		<p class="mt-1 text-sm font-semibold text-danger">{issue.message}</p>
 	{/each}
 {/snippet}
 
 {#snippet text(label: string, field: RemoteFormField<string>, value?: string, placeholder?: string)}
 	<label class="block">
 		<span class="text-sm font-semibold">{label}</span>
-		<input {...field.as('text', value)} {placeholder} class="feld mt-1" />
+		<input {...field.as('text', value)} {placeholder} class="field mt-1" />
 		{@render issues(field)}
 	</label>
 {/snippet}
@@ -27,7 +33,7 @@
 {#snippet note(label: string, field: RemoteFormField<string>, value?: string)}
 	<label class="block">
 		<span class="text-sm font-semibold">{label}</span>
-		<textarea {...field.as('text', value)} rows="2" class="feld mt-1"></textarea>
+		<textarea {...field.as('text', value)} rows="2" class="field mt-1"></textarea>
 		{@render issues(field)}
 	</label>
 {/snippet}
@@ -48,14 +54,14 @@
 				{...min.as('number', minValue ?? undefined)}
 				aria-label="{activity} im {season}, frühestens nach wie vielen Tagen"
 				min="1"
-				class="feld w-20"
+				class="field w-20"
 			/>
 			bis
 			<input
 				{...max.as('number', maxValue ?? undefined)}
 				aria-label="{activity} im {season}, spätestens nach wie vielen Tagen"
 				min="1"
-				class="feld w-20"
+				class="field w-20"
 			/>
 			Tage
 		</div>
@@ -66,13 +72,13 @@
 
 <div class="grid gap-10">
 	<fieldset class="grid gap-4 sm:grid-cols-2">
-		<legend class="titel mb-4 text-xl">Diese Pflanze</legend>
+		<legend class="title mb-4 text-xl">Diese Pflanze</legend>
 		{@render text('Name', fields.name, plant?.name, 'Große Monstera')}
 		{@render text('Standort', fields.location, plant?.location, 'Wohnzimmer, Ostfenster')}
 	</fieldset>
 
 	<fieldset class="grid gap-4 sm:grid-cols-2">
-		<legend class="titel mb-4 text-xl">Art</legend>
+		<legend class="title mb-4 text-xl">Art</legend>
 		{@render text('Deutscher Name', fields.commonName, plant?.commonName, 'Fensterblatt')}
 		{@render text(
 			'Botanischer Name',
@@ -83,7 +89,7 @@
 	</fieldset>
 
 	<fieldset>
-		<legend class="titel mb-4 text-xl">Licht</legend>
+		<legend class="title mb-4 text-xl">Licht</legend>
 		<div class="grid gap-2 sm:grid-cols-2">
 			{#each LIGHT_LEVELS as level (level)}
 				<label class={choice}>
@@ -91,7 +97,7 @@
 						{...fields.light.as('radio', level, plant ? plant.light === level : undefined)}
 						class="sr-only"
 					/>
-					<Pikto name={level} tone={level} class="size-7" />
+					<Pictogram name={level} tone={level} class="size-7" />
 					{LIGHT_LABELS[level].long}
 				</label>
 			{/each}
@@ -100,7 +106,7 @@
 	</fieldset>
 
 	<fieldset class="grid gap-4">
-		<legend class="titel mb-4 text-xl">Gießen</legend>
+		<legend class="title mb-4 text-xl">Gießen</legend>
 		<div class="grid gap-4 sm:grid-cols-2">
 			{@render days(
 				'Gießen',
@@ -123,7 +129,7 @@
 	</fieldset>
 
 	<fieldset class="grid gap-4">
-		<legend class="titel mb-4 text-xl">Düngen</legend>
+		<legend class="title mb-4 text-xl">Düngen</legend>
 		<div class="grid gap-4 sm:grid-cols-2">
 			{@render days(
 				'Düngen',
@@ -142,12 +148,12 @@
 				plant?.fertilizingWinterMax
 			)}
 		</div>
-		<p class="text-sm text-moos">Winter leer lassen, wenn dann nicht gedüngt wird.</p>
+		<p class="text-sm text-moss">Winter leer lassen, wenn dann nicht gedüngt wird.</p>
 		{@render note('Hinweis zum Düngen', fields.fertilizingNote, plant?.fertilizingNote)}
 	</fieldset>
 
 	<fieldset class="grid gap-4">
-		<legend class="titel mb-4 text-xl">Substrat und Umtopfen</legend>
+		<legend class="title mb-4 text-xl">Substrat und Umtopfen</legend>
 		{@render text(
 			'Substrat',
 			fields.substrate,
@@ -161,7 +167,7 @@
 				<input
 					{...fields.repottingYears.as('number', plant?.repottingYears)}
 					min="1"
-					class="feld w-20"
+					class="field w-20"
 				/>
 				Jahre
 			</span>
@@ -171,16 +177,19 @@
 	</fieldset>
 
 	<fieldset class="grid gap-4">
-		<legend class="titel mb-4 text-xl">Giftigkeit</legend>
+		<legend class="title mb-4 text-xl">Giftigkeit</legend>
 		<div class="grid gap-2 sm:grid-cols-2">
 			<label class={choice}>
-				<input {...fields.toxicPets.as('checkbox', plant?.toxicPets)} class="size-5 accent-gift" />
+				<input
+					{...fields.toxicPets.as('checkbox', plant?.toxicPets)}
+					class="size-5 accent-danger"
+				/>
 				Giftig für Haustiere
 			</label>
 			<label class={choice}>
 				<input
 					{...fields.toxicChildren.as('checkbox', plant?.toxicChildren)}
-					class="size-5 accent-gift"
+					class="size-5 accent-danger"
 				/>
 				Giftig für Kinder
 			</label>
@@ -189,7 +198,7 @@
 	</fieldset>
 
 	<fieldset>
-		<legend class="titel mb-4 text-xl">Schwierigkeit</legend>
+		<legend class="title mb-4 text-xl">Schwierigkeit</legend>
 		<div class="grid grid-cols-3 gap-2">
 			{#each DIFFICULTIES as difficulty (difficulty)}
 				<label class={[choice, 'justify-center']}>
@@ -201,7 +210,7 @@
 						)}
 						class="sr-only"
 					/>
-					{difficulty}
+					{DIFFICULTY_LABELS[difficulty]}
 				</label>
 			{/each}
 		</div>
@@ -209,13 +218,13 @@
 	</fieldset>
 
 	<fieldset class="grid gap-4">
-		<legend class="titel mb-4 text-xl">Frost und Überwinterung</legend>
+		<legend class="title mb-4 text-xl">Frost und Überwinterung</legend>
 		<label class="block">
 			<span class="text-sm font-semibold">Tiefste vertragene Temperatur</span>
 			<span class="mt-1 flex items-center gap-2">
 				<input
 					{...fields.frostMinTemp.as('number', plant?.frostMinTemp ?? undefined)}
-					class="feld w-24"
+					class="field w-24"
 				/>
 				°C
 			</span>
@@ -225,12 +234,12 @@
 	</fieldset>
 
 	<fieldset>
-		<legend class="titel mb-4 text-xl">Tipps und Tricks</legend>
+		<legend class="title mb-4 text-xl">Tipps und Tricks</legend>
 		<textarea
 			{...fields.tips.as('text', plant?.tips)}
 			rows="8"
 			aria-label="Tipps und Tricks"
-			class="feld leading-relaxed"></textarea>
+			class="field leading-relaxed"></textarea>
 		{@render issues(fields.tips)}
 	</fieldset>
 </div>

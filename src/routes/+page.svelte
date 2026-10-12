@@ -32,7 +32,7 @@
 
 <header class="pt-4 sm:pt-10">
 	<h1
-		class="name spriesst text-[5.5rem] leading-[0.9] font-bold text-blatt sm:text-[9rem]"
+		class="name sprout text-[5.5rem] leading-[0.9] font-bold text-leaf sm:text-[9rem]"
 		aria-label="Floom"
 	>
 		{#each [...'Floom'] as letter, i (i)}
@@ -60,18 +60,18 @@
 		<label class="relative block w-full max-w-md">
 			<span class="sr-only">Pflanzen durchsuchen</span>
 			<Icon
-				name="suche"
-				class="pointer-events-none absolute top-1/2 left-4 size-5 -translate-y-1/2 text-moos"
+				name="search"
+				class="pointer-events-none absolute top-1/2 left-4 size-5 -translate-y-1/2 text-moss"
 			/>
 			<input
 				type="search"
 				bind:value={search}
 				placeholder="Name, Art oder Standort"
-				class="feld rounded-full pl-11"
+				class="field rounded-full pl-11"
 			/>
 		</label>
-		<p class="flex items-center gap-2 text-sm font-medium text-moos">
-			<Icon name={season === 'summer' ? 'sonne' : 'frost'} class="size-5" />
+		<p class="flex items-center gap-2 text-sm font-medium text-moss">
+			<Icon name={season === 'summer' ? 'sun' : 'frost'} class="size-5" />
 			Gießangaben für den {SEASON_LABELS[season].name} ({SEASON_LABELS[season].months})
 		</p>
 	</div>

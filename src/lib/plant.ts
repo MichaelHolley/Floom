@@ -2,18 +2,24 @@ import * as z from 'zod';
 
 z.config(z.locales.de());
 
-export const LIGHT_LEVELS = ['sonne', 'hell', 'halbschatten', 'schatten'] as const;
+export const LIGHT_LEVELS = ['sun', 'bright', 'partialShade', 'shade'] as const;
 export type Light = (typeof LIGHT_LEVELS)[number];
 
 export const LIGHT_LABELS: Record<Light, { long: string; short: string }> = {
-	sonne: { long: 'Volle Sonne', short: 'Sonne' },
-	hell: { long: 'Hell, indirekt', short: 'Hell' },
-	halbschatten: { long: 'Halbschatten', short: 'Halbschatten' },
-	schatten: { long: 'Schatten', short: 'Schatten' }
+	sun: { long: 'Volle Sonne', short: 'Sonne' },
+	bright: { long: 'Hell, indirekt', short: 'Hell' },
+	partialShade: { long: 'Halbschatten', short: 'Halbschatten' },
+	shade: { long: 'Schatten', short: 'Schatten' }
 };
 
-export const DIFFICULTIES = ['einfach', 'mittel', 'schwer'] as const;
+export const DIFFICULTIES = ['easy', 'medium', 'hard'] as const;
 export type Difficulty = (typeof DIFFICULTIES)[number];
+
+export const DIFFICULTY_LABELS: Record<Difficulty, string> = {
+	easy: 'Einfach',
+	medium: 'Mittel',
+	hard: 'Schwer'
+};
 
 const note = z.string().trim().max(500).default('');
 const days = z.number().int().min(1).max(365);
@@ -22,7 +28,7 @@ const careShape = {
 	commonName: z.string().trim().min(1).max(80).meta({ description: 'Deutscher Name der Art' }),
 	botanicalName: z.string().trim().min(1).max(80).meta({ description: 'Botanischer Name' }),
 	light: z.enum(LIGHT_LEVELS).meta({
-		description: 'sonne = volle Sonne, hell = hell ohne direkte Sonne'
+		description: 'sun = volle Sonne, bright = hell ohne direkte Sonne'
 	}),
 	wateringSummerMin: days.meta({ description: 'Gießabstand im Sommer in Tagen, untere Grenze' }),
 	wateringSummerMax: days,

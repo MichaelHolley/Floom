@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { Snippet } from 'svelte';
 	import type { IconName } from './Icon.svelte';
-	import Pikto, { type Tone } from './Pikto.svelte';
+	import Pictogram, { type Tone } from './Pictogram.svelte';
 
 	let {
 		icon,
@@ -13,11 +13,11 @@
 </script>
 
 <div
-	class="grid grid-cols-[2.75rem_minmax(0,1fr)] gap-x-4 border-b-2 border-dotted border-linie py-5"
+	class="grid grid-cols-[2.75rem_minmax(0,1fr)] gap-x-4 border-b-2 border-dotted border-line py-5"
 >
-	<Pikto name={icon} {tone} class="size-11" />
+	<Pictogram name={icon} {tone} class="size-11" />
 	<div>
-		<dt class="text-sm font-semibold text-moos">{label}</dt>
+		<dt class="text-sm font-semibold text-moss">{label}</dt>
 		<dd class="mt-1">
 			{@render children()}
 			{#if note}

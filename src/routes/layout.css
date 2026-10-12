@@ -11,15 +11,15 @@
 	--font-sans: 'Poppins', ui-sans-serif, system-ui, sans-serif;
 	--font-serif: 'Fraunces Variable', Georgia, serif;
 
-	--color-grund: #ecf4dc;
-	--color-etikett: #fffdf5;
-	--color-tinte: #1e3a2c;
-	--color-moos: #55694f;
-	--color-linie: #c9dab0;
-	--color-blatt: #2c7a4b;
-	--color-sonne: #ffc83d;
-	--color-wasser: #3a78dc;
-	--color-gift: #cf2f5b;
+	--color-background: #ecf4dc;
+	--color-surface: #fffdf5;
+	--color-ink: #1e3a2c;
+	--color-moss: #55694f;
+	--color-line: #c9dab0;
+	--color-leaf: #2c7a4b;
+	--color-sun: #ffc83d;
+	--color-water: #3a78dc;
+	--color-danger: #cf2f5b;
 
 	--text-xs: 0.75rem;
 	--text-sm: 0.875rem;
@@ -35,14 +35,14 @@
 
 @layer base {
 	html {
-		background: var(--color-grund);
-		color: var(--color-tinte);
+		background: var(--color-background);
+		color: var(--color-ink);
 		font-family: var(--font-sans);
 		-webkit-text-size-adjust: 100%;
 	}
 
 	:focus-visible {
-		outline: 3px solid var(--color-wasser);
+		outline: 3px solid var(--color-water);
 		outline-offset: 2px;
 	}
 
@@ -53,8 +53,8 @@
 	}
 
 	::selection {
-		background: var(--color-sonne);
-		color: var(--color-tinte);
+		background: var(--color-sun);
+		color: var(--color-ink);
 	}
 }
 
@@ -78,25 +78,25 @@
 		font-weight: 400;
 	}
 
-	.titel {
+	.title {
 		font-weight: 800;
 		line-height: 1.05;
 		letter-spacing: -0.02em;
 		text-wrap: balance;
 	}
 
-	.wert {
+	.value {
 		font-size: var(--text-xl);
 		font-weight: 700;
 		line-height: 1.2;
 	}
 
 	/* Percentages are tuned for a 4:5 box so the big corners stay circular. */
-	.blattform {
+	.leaf-shape {
 		border-radius: 42% 7% 42% 7% / 33.6% 5.6% 33.6% 5.6%;
 	}
 
-	.knopf {
+	.button {
 		display: inline-flex;
 		align-items: center;
 		justify-content: center;
@@ -104,99 +104,99 @@
 		min-height: 2.75rem;
 		padding: 0 1.25rem;
 		border-radius: 999px;
-		border: 2px solid var(--color-tinte);
-		background: var(--color-blatt);
-		color: var(--color-etikett);
+		border: 2px solid var(--color-ink);
+		background: var(--color-leaf);
+		color: var(--color-surface);
 		font-weight: 700;
 		font-size: var(--text-base);
-		box-shadow: 0 3px 0 var(--color-tinte);
+		box-shadow: 0 3px 0 var(--color-ink);
 		transition:
 			transform 80ms ease-out,
 			box-shadow 80ms ease-out;
 	}
 
-	.knopf:hover {
-		background: var(--color-tinte);
+	.button:hover {
+		background: var(--color-ink);
 	}
 
-	.knopf:active:not(:disabled) {
+	.button:active:not(:disabled) {
 		transform: translateY(3px);
-		box-shadow: 0 0 0 var(--color-tinte);
+		box-shadow: 0 0 0 var(--color-ink);
 	}
 
-	.knopf:disabled {
+	.button:disabled {
 		opacity: 0.55;
 		cursor: progress;
 	}
 
-	.knopf-leise {
-		background: var(--color-etikett);
-		color: var(--color-tinte);
+	.button-quiet {
+		background: var(--color-surface);
+		color: var(--color-ink);
 	}
 
-	.knopf-leise:hover {
-		background: var(--color-sonne);
+	.button-quiet:hover {
+		background: var(--color-sun);
 	}
 
-	.knopf-gift {
-		background: var(--color-gift);
+	.button-danger {
+		background: var(--color-danger);
 	}
 
-	.feld {
+	.field {
 		width: 100%;
 		min-height: 2.75rem;
 		padding: 0.5rem 0.875rem;
 		border-radius: 0.875rem;
-		border: 2px solid var(--color-linie);
-		background: var(--color-etikett);
+		border: 2px solid var(--color-line);
+		background: var(--color-surface);
 		font-size: var(--text-base);
 	}
 
-	.feld:hover {
-		border-color: var(--color-moos);
+	.field:hover {
+		border-color: var(--color-moss);
 	}
 
-	.feld:focus-visible {
-		border-color: var(--color-tinte);
+	.field:focus-visible {
+		border-color: var(--color-ink);
 	}
 
-	.feld[aria-invalid='true'] {
-		border-color: var(--color-gift);
+	.field[aria-invalid='true'] {
+		border-color: var(--color-danger);
 	}
 
-	.feld::placeholder {
-		color: var(--color-moos);
+	.field::placeholder {
+		color: var(--color-moss);
 	}
 
 	.link {
 		font-weight: 600;
-		text-decoration: underline wavy var(--color-blatt);
+		text-decoration: underline wavy var(--color-leaf);
 		text-decoration-thickness: 1.5px;
 		text-underline-offset: 4px;
 	}
 
 	.link:hover {
-		text-decoration-color: var(--color-sonne);
+		text-decoration-color: var(--color-sun);
 	}
 
 	@media (prefers-reduced-motion: no-preference) {
-		.wiegt {
+		.sway {
 			transition: transform 260ms cubic-bezier(0.34, 1.56, 0.64, 1);
 		}
 
-		.group:hover .wiegt {
+		.group:hover .sway {
 			transform: rotate(-2deg) scale(1.02);
 		}
 
-		.spriesst > span {
+		.sprout > span {
 			display: inline-block;
 			transform-origin: 50% 100%;
-			animation: spriessen 620ms cubic-bezier(0.34, 1.56, 0.64, 1) backwards;
+			animation: sprout 620ms cubic-bezier(0.34, 1.56, 0.64, 1) backwards;
 			animation-delay: calc(var(--i) * 70ms);
 		}
 	}
 
-	@keyframes spriessen {
+	@keyframes sprout {
 		from {
 			transform: translateY(0.25em) scaleY(0.2);
 			opacity: 0;

@@ -1,12 +1,12 @@
 <script lang="ts" module>
 	const TONES = {
-		sonne: 'bg-sonne text-tinte',
-		hell: 'bg-[#ffe7a3] text-tinte',
-		halbschatten: 'bg-[#c9dab0] text-tinte',
-		schatten: 'bg-moos text-etikett',
-		wasser: 'bg-wasser text-etikett',
-		gift: 'bg-gift text-etikett',
-		neutral: 'bg-etikett text-tinte ring-2 ring-linie ring-inset'
+		sun: 'bg-sun text-ink',
+		bright: 'bg-[#ffe7a3] text-ink',
+		partialShade: 'bg-[#c9dab0] text-ink',
+		shade: 'bg-moss text-surface',
+		water: 'bg-water text-surface',
+		danger: 'bg-danger text-surface',
+		neutral: 'bg-surface text-ink ring-2 ring-line ring-inset'
 	};
 
 	export type Tone = keyof typeof TONES;

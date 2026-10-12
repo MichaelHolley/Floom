@@ -6,7 +6,7 @@
 <svelte:head><title>Floom</title></svelte:head>
 
 <div class="mt-8 max-w-md">
-	<h1 class="titel text-4xl">
+	<h1 class="title text-4xl">
 		{page.status === 404 ? 'Hier wächst nichts.' : 'Das hat nicht geklappt.'}
 	</h1>
 	<p class="mt-4 text-lg leading-relaxed">
@@ -14,5 +14,5 @@
 			? 'Diese Seite oder Pflanze gibt es nicht (mehr).'
 			: 'Die Seite konnte nicht geladen werden. Bitte später noch einmal versuchen.'}
 	</p>
-	<a href={resolve('/')} class="knopf mt-6">Alle Pflanzen ansehen</a>
+	<a href={resolve('/')} class="button mt-6">Alle Pflanzen ansehen</a>
 </div>

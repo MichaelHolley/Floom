@@ -40,16 +40,16 @@
 <svelte:head><title>Pflanze hinzufügen – Floom</title></svelte:head>
 
 <form {...createPlant} enctype="multipart/form-data" class="mx-auto max-w-2xl">
-	<h1 class="titel text-4xl sm:text-5xl">Pflanze hinzufügen</h1>
+	<h1 class="title text-4xl sm:text-5xl">Pflanze hinzufügen</h1>
 
 	<label
-		class="mt-8 grid aspect-4/3 w-full place-items-center overflow-hidden rounded-[2rem] border-2 border-dashed border-blatt bg-etikett has-focus-visible:outline-3 has-focus-visible:outline-offset-2 has-focus-visible:outline-wasser"
+		class="mt-8 grid aspect-4/3 w-full place-items-center overflow-hidden rounded-[2rem] border-2 border-dashed border-leaf bg-surface has-focus-visible:outline-3 has-focus-visible:outline-offset-2 has-focus-visible:outline-water"
 	>
 		{#if preview}
 			<img src={preview} alt="Gewähltes Foto" class="size-full object-cover" />
 		{:else}
 			<span class="flex flex-col items-center gap-2 p-6 text-center font-semibold">
-				<Icon name="kamera" class="size-10" />
+				<Icon name="camera" class="size-10" />
 				Foto aufnehmen oder auswählen
 			</span>
 		{/if}
@@ -61,26 +61,26 @@
 		/>
 	</label>
 	{#if preview}
-		<p class="mt-2 text-sm text-moos">Zum Ändern auf das Foto tippen.</p>
+		<p class="mt-2 text-sm text-moss">Zum Ändern auf das Foto tippen.</p>
 	{/if}
 	{#each createPlant.fields.photo.issues() ?? [] as issue (issue.message)}
-		<p class="mt-2 text-sm font-semibold text-gift">{issue.message}</p>
+		<p class="mt-2 text-sm font-semibold text-danger">{issue.message}</p>
 	{/each}
 
 	{#if !filling}
 		<div class="mt-8 grid gap-4">
 			<label class="block">
 				<span class="text-sm font-semibold">Art, falls bekannt</span>
-				<input bind:value={speciesHint} placeholder="Monstera" maxlength="100" class="feld mt-1" />
-				<span class="mt-1 block text-sm text-moos">Hilft der KI beim Bestimmen.</span>
+				<input bind:value={speciesHint} placeholder="Monstera" maxlength="100" class="field mt-1" />
+				<span class="mt-1 block text-sm text-moss">Hilft der KI beim Bestimmen.</span>
 			</label>
 			<div class="flex flex-wrap gap-3">
-				<button type="button" class="knopf" disabled={!photo || asking} onclick={fillWithAi}>
+				<button type="button" class="button" disabled={!photo || asking} onclick={fillWithAi}>
 					{asking ? 'KI füllt aus …' : 'Mit KI ausfüllen'}
 				</button>
 				<button
 					type="button"
-					class="knopf knopf-leise"
+					class="button button-quiet"
 					disabled={!photo || asking}
 					onclick={() => (filling = true)}
 				>
@@ -88,14 +88,14 @@
 				</button>
 			</div>
 			{#if !photo}
-				<p class="text-sm text-moos">Zuerst ein Foto wählen.</p>
+				<p class="text-sm text-moss">Zuerst ein Foto wählen.</p>
 			{/if}
 		</div>
 	{:else}
 		{#if aiError}
 			<p
 				role="alert"
-				class="mt-8 rounded-2xl border-2 border-gift bg-etikett px-4 py-3 font-semibold"
+				class="mt-8 rounded-2xl border-2 border-danger bg-surface px-4 py-3 font-semibold"
 			>
 				{aiError}
 			</p>
@@ -105,9 +105,9 @@
 			<PlantFields fields={createPlant.fields} />
 		</div>
 
-		<div class="mt-10 border-t-2 border-tinte pt-6">
-			<button class="knopf" disabled={createPlant.pending > 0}>Pflanze speichern</button>
-			<p class="mt-3 text-sm text-moos">
+		<div class="mt-10 border-t-2 border-ink pt-6">
+			<button class="button" disabled={createPlant.pending > 0}>Pflanze speichern</button>
+			<p class="mt-3 text-sm text-moss">
 				Erst nach dem Speichern ist die Pflanze öffentlich zu sehen.
 			</p>
 		</div>

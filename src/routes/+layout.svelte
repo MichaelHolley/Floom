@@ -18,10 +18,10 @@
 		{#if page.route.id === '/'}
 			<span></span>
 		{:else}
-			<a href={resolve('/')} class="name text-3xl text-blatt hover:text-tinte">Floom</a>
+			<a href={resolve('/')} class="name text-3xl text-leaf hover:text-ink">Floom</a>
 		{/if}
 		{#if admin && page.route.id !== '/import'}
-			<a href={resolve('/import')} class="knopf">
+			<a href={resolve('/import')} class="button">
 				<Icon name="plus" class="size-5" />
 				Pflanze hinzufügen
 			</a>
@@ -33,7 +33,7 @@
 	</main>
 
 	<footer
-		class="flex items-center gap-4 border-t-2 border-dotted border-linie py-6 text-sm text-moos"
+		class="flex items-center gap-4 border-t-2 border-dotted border-line py-6 text-sm text-moss"
 	>
 		{#if admin}
 			<form {...logout}>
